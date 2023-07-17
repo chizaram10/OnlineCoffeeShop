@@ -1,0 +1,86 @@
+[
+  {
+    "Id": "9de91d2c-60ab-4849-b97f-70dd88529a8c",
+    "Name": "Coffee",
+    "Price": 500,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689418442/patar-espresso-coffee-beans-dark-roast-organic-rainforest-alliance-certified__1111847_pe870970_s5_iz0vys.jpg",
+    "Category": 0
+  },
+  {
+    "Id": "41586f46-1a7a-4ba6-b5a2-edf61ef66788",
+    "Name": "Tea",
+    "Price": 400,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689430389/Tea_tugpg2.jpg",
+    "Category": 0
+  },
+  {
+    "Id": "8226cb80-5a6a-4d05-971a-7b823ab32ea8",
+    "Name": "Hot Chocolate",
+    "Price": 500,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689430306/french-hot-chocolate-featurd-image_ckjyiz.jpg",
+    "Category": 0
+  },
+  {
+    "Id": "f7736430-1375-45c9-8e82-f012c27577b1",
+    "Name": "Hot Milk",
+    "Price": 500,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689430248/Condensed_Milk_Drink_Top_krm0st.jpg",
+    "Category": 0
+  },
+  {
+    "Id": "7e151163-130f-4dc2-841f-6ddcf3ca089a",
+    "Name": "Cookies",
+    "Price": 600,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689419850/chocolate-chip-cookies-recipe_kypxjg.jpg",
+    "Category": 1
+  },
+  {
+    "Id": "273557d8-fefd-4ce2-98b2-19331ee261e6",
+    "Name": "Muffins",
+    "Price": 600,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689419886/42719-banana-muffins-dianne-1x1-1-793fa50915f646dca14efff860760200_nrijna.jpg",
+    "Category": 1
+  },
+  {
+    "Id": "ca5b481a-e4a0-4a35-9753-29c0290be437",
+    "Name": "Sandwiches",
+    "Price": 800,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689419935/cucumber-sandwich-eddcc95811f5426094ea5dbea6a6b026_fejoa7.jpg",
+    "Category": 1
+  },
+  {
+    "Id": "ecf1c2d4-5c45-4d2c-85b6-d9090ef2a862",
+    "Name": "French Croissants",
+    "Price": 700,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689420114/French-Croissants-SM-2363_rvgc9k.jpg",
+    "Category": 1
+  },
+  {
+    "Id": "93d88699-44e3-470f-a7b3-18175c9b5d90",
+    "Name": "Water",
+    "Price": 300,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689430537/45_wbhjge.jpg",
+    "Category": 2
+  },
+  {
+    "Id": "fb700e30-0992-4744-9ede-b64a6d2a03c4",
+    "Name": "Coca Cola",
+    "Price": 400,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689430565/71EZpFlcqHL_uqhb6w.jpg",
+    "Category": 2
+  },
+  {
+    "Id": "14085418-27a9-4690-9f71-f89bb500a418",
+    "Name": "Fanta",
+    "Price": 400,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689430598/51FloH9YQAL_zt0lps.jpg",
+    "Category": 2
+  },
+  {
+    "Id": "5a19e17e-20b7-4f8c-98db-e51c324d664f",
+    "Name": "Sprite",
+    "Price": 400,
+    "ImageUrl": "https://res.cloudinary.com/drixwe3ie/image/upload/v1689430635/61Xl5i10EfL._SL1500_ie4hwp.jpg",
+    "Category": 2
+  }
+]

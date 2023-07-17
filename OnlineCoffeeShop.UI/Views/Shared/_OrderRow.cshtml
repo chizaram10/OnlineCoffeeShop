@@ -1,0 +1,12 @@
+﻿@model OrderDTO
+
+
+<tbody>
+    <tr>
+        <td class="text-left">@Model.OrderDate</td>
+        <td class="text-center">@Model.OrderNumber</td>
+        <td class="text-right">@Model.OrderTotal.ToString("c")</td>
+        <td class="text-right">@Model.Customer!.PhoneNumber</td>
+        <td class="text-right">@Model.Customer.FirstName @Model.Customer.LastName</td>
+    </tr>
+</tbody>

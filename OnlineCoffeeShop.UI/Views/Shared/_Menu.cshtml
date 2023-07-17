@@ -1,0 +1,41 @@
+﻿@model HomeViewModel
+
+<div class="container">
+	<section class="p-4 mt-4">
+		<h2 class="mb-5 fw-bolder">Hot Drinks</h2>
+		<div class="row flex-wrap">
+			@foreach (var item in Model.MenuItems.Where(m => m.Category.ToString() == "HotDrinks"))
+			{
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<partial name="_MenuItemCard" model="item" />
+				</div>
+			}
+		</div>
+	</section>
+
+	<section class="p-4 mt-4">
+		<h2 class="mb-5 fw-bolder">Cold Drinks</h2>
+		<div class="row flex-wrap">
+			@foreach (var item in Model.MenuItems.Where(m => m.Category.ToString() == "ColdDrinks"))
+			{
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<partial name="_MenuItemCard" model="item" />
+				</div>
+			}
+		</div>
+		
+	</section>
+
+	<section class="p-4 mt-4">
+		<h2 class="mb-5 fw-bolder">Food</h2>
+		<div class="row flex-wrap">
+			@foreach (var item in Model.MenuItems.Where(m => m.Category.ToString() == "Food"))
+			{
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<partial name="_MenuItemCard" model="item" />
+				</div>
+			}
+		</div>		
+	</section>
+
+</div>

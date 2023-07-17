@@ -1,0 +1,55 @@
+﻿@model LoginDTO
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="container m-auto mt-5 pt-5">
+    <div class="row m-auto mt-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card my-5">
+                <div style="font:12px">
+                    @if (ViewBag.LoginErrMsg != null)
+                    {
+                        <div class="d-flex justify-content-center">
+                            <div style="width:100%; text-align:justify;" asp-validation-summary="All" class="alert alert-danger forgotPass-list-error" id="summary">
+                                Login failed. Please check your credentials and try again.
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <form class="card-body cardbody-color p-lg-5" asp-controller="Auth" asp-action="Login" method="post">
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class=" bi bi-envelope"></i>
+                            </span>
+                            <input asp-for="Email" class="form-control" placeholder="Email" />
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger fs-5"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="bi bi-key"></i>
+                            </span>
+                            <input type="password" asp-for="Password" class="form-control" placeholder="Password" />
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger fs-5"></span>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="px-5 mb-5 w-100 btn btn-dark" id="btn-submit">Login</button>
+                    </div>
+                    <div class="form-text text-center mb-5 text-dark">
+                        Don't have an account? <a asp-controller="Auth" asp-action="Register" class="signUp-text">Create account</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

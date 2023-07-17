@@ -1,0 +1,34 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.navbar-img {
+    height: 40px;
+    width: 40px;
+}
+
+.hero-logo {
+    height: 354px;
+    width: 354px;
+}
+
+.home-img-thumbnail {
+    height: 230px;
+    width: 215px;
+    border-radius: 20px 0px 20px 0px;
+}
