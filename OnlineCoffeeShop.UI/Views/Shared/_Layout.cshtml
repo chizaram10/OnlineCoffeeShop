@@ -26,7 +26,13 @@
                             </li>
                         </ul>
                     </div>
-                    <div style="width: auto;">
+                    @*<div style="width: auto;">
+                        <ul class="navbar-nav">
+                            @await Component.InvokeAsync("ShoppingCartSummary")
+                            <partial name="_LoginPartial" />
+                        </ul>
+                    </div>*@
+                    <div style="width: auto;" class="d-flex flex-row">
                         <ul class="navbar-nav">
                             @await Component.InvokeAsync("ShoppingCartSummary")
                             <partial name="_LoginPartial" />
@@ -36,7 +42,7 @@
             </div>
         </nav>
     </header>
-    <div class="w-100 mt-5 pt-4">
+    <div class="w-100">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -44,7 +50,7 @@
 
     <footer class="border-top text-muted">
         <div class="container text-black fw-bold p-3 mt-3 mb-4">
-            &copy; @DateTime.Now.ToString("yyyy") - Coffee Shop - @*<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
+            &copy; @DateTime.Now.ToString("yyyy") - Coffee Shop -
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
