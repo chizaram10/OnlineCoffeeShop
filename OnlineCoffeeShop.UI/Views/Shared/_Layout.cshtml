@@ -19,18 +19,22 @@
         <nav class="navbar navbar-expand-lg navbar-toggleable-lg border-bottom box-shadow mb-3" role="navigation" style="background-color: #fff5e9;">
             <div class="container-fluid">
                 <div class="d-flex flex-row justify-content-between align-items-center w-100 px-5">
-                    <div style="width: auto;">
+                    <div class="w-auto">
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link text-dark fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                         </ul>
                     </div>
-                    <div style="width: auto;">
-                        <ul class="navbar-nav">
+                    <div class="w-auto d-flex flex-row align-items-center justify-content-around">
+                        <div style="width: 100px;">
                             @await Component.InvokeAsync("ShoppingCartSummary")
-                            <partial name="_LoginPartial" />
-                        </ul>
+                        </div>
+                        <div>
+                            <ul class="navbar-nav">
+                                <partial name="_LoginPartial" />
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
