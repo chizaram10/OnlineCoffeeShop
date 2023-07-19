@@ -13,30 +13,41 @@ namespace OnlineCoffeeShop.Core.Implementations
             _menuItemRepository = menuItemRepository;
         }
 
-        public async Task<MenuItem> GetMenuItemById(string id)
+        public async Task<ResponseDTO<MenuItem>> GetMenuItemById(string id)
         {
             try
             {
                 var menuItem = await _menuItemRepository.GetMenuItemById(id);
 
-                return menuItem;
+                if (menuItem == null)
+                {
+                    return ResponseDTO<MenuItem>.Fail(new string[] { "Menu item not found." });
+                }
+
+                return ResponseDTO<MenuItem>.Success(menuItem);
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception("Unable to find menu item", ex);
+                return ResponseDTO<MenuItem>.Fail(new string[] { "Menu item not found." });
             }
         }
 
-        public async Task<List<MenuItem>> GetAllMenuItems()
+        public async Task<ResponseDTO<List<MenuItem>>> GetAllMenuItems()
         {
             try
             {
                 var allMenuItems = await _menuItemRepository.GetAllMenuItems();
-                return allMenuItems;
+
+                if (allMenuItems == null || allMenuItems.Count < 1)
+                {
+                    return ResponseDTO<List<MenuItem>>.Fail(new string[] { "No menu items found." });
+                }
+
+                return ResponseDTO<List<MenuItem>>.Success(allMenuItems);
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message, ex);
+                return ResponseDTO<List<MenuItem>>.Fail(new string[] { "No menu items found." });
             }
         }
     }

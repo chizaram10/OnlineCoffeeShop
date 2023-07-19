@@ -21,8 +21,8 @@ namespace OnlineCoffeeShop.UI.Controllers
         public async Task<ViewResult> Index()
         {
             var shoppingCart = ShoppingCartExtension.GetCart(HttpContext.RequestServices);
-            var items = await _shoppingCartItemService.GetShoppingCartItems(shoppingCart.Id);
-            shoppingCart.ShoppingCartItems = items;
+            var response = await _shoppingCartItemService.GetShoppingCartItems(shoppingCart.Id);
+            shoppingCart.ShoppingCartItems = response.Data!;
 
             var shoppingCartViewModel = new ShoppingCartViewModel
             {
@@ -33,19 +33,11 @@ namespace OnlineCoffeeShop.UI.Controllers
             return View(shoppingCartViewModel);
         }
 
-        public async Task<RedirectToActionResult> AddToShoppingCart(string id)
+        public async Task<RedirectToActionResult> AddToShoppingCart(string id, int quantity)
         {
             var shoppingCart = ShoppingCartExtension.GetCart(HttpContext.RequestServices);
-            await _shoppingCartItemService.AddToCart(id, shoppingCart.Id);
+            await _shoppingCartItemService.AddToCart(id, shoppingCart.Id, quantity);
             
-            return RedirectToAction("Index", "Home");
-        }
-
-        public async Task<RedirectToActionResult> RemoveFromShoppingCart(string id)
-        {
-            var shoppingCart = ShoppingCartExtension.GetCart(HttpContext.RequestServices);
-            await _shoppingCartItemService.RemoveFromCart(id, shoppingCart.Id);
-
             return RedirectToAction("Index", "Home");
         }
     }

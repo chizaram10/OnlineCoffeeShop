@@ -30,31 +30,6 @@ namespace OnlineCoffeeShop.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<int> RemoveFromCart(ShoppingCartItem item)
-        {
-            var shoppingCartItem = await _dbContext.ShoppingCartItems
-                .FirstOrDefaultAsync(s => item.Id == s.Id);
-
-            var localAmount = 0;
-
-            if (shoppingCartItem != null)
-            {
-                if (shoppingCartItem.Quantity > 1)
-                {
-                    shoppingCartItem.Quantity--;
-                    localAmount = shoppingCartItem.Quantity;
-                }
-                else
-                {
-                    _dbContext.ShoppingCartItems.Remove(shoppingCartItem);
-                }
-            }
-
-            await _dbContext.SaveChangesAsync();
-
-            return localAmount;
-        }
-
         public async Task<List<ShoppingCartItem>> GetShoppingCartItems(string shoppingCartId)
         {
             var shoppingCartItems = await _dbContext.ShoppingCartItems
@@ -63,6 +38,15 @@ namespace OnlineCoffeeShop.Infrastructure.Repositories
                 .ToListAsync();
 
             return shoppingCartItems!;
+        }
+
+        public async Task<ShoppingCartItem> GetShoppingCartItemById(string id)
+        {
+            var shoppingCartItem = await _dbContext.ShoppingCartItems
+                .Include(si => si.MenuItem)
+                .FirstOrDefaultAsync(si => id == si.Id);
+
+            return shoppingCartItem!;
         }
 
         public async Task ClearCart(string shoppingCartId)

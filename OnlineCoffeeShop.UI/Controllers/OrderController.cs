@@ -32,22 +32,22 @@ namespace OnlineCoffeeShop.UI.Controllers
             }
 
             var shoppingCart = ShoppingCartExtension.GetCart(HttpContext.RequestServices);
-            var items = await _shoppingCartItemService.GetShoppingCartItems(shoppingCart.Id);
-            shoppingCart.ShoppingCartItems = items;
+            var response = await _shoppingCartItemService.GetShoppingCartItems(shoppingCart.Id);
+            shoppingCart.ShoppingCartItems = response.Data!;
             var email = HttpContext.Session.GetString("Username")!;
 
 
             if (shoppingCart.ShoppingCartItems.Count == 0)
             {
-                ModelState.AddModelError("", "Your cart is empty, add some items first");
+                ModelState.AddModelError("", "Your cart is empty, add some response first");
             }
 
             var shoppingcartTotal = _shoppingCartItemService.GetShoppingCartTotal(shoppingCart.Id);
 
-            var response = await _orderService.CreateOrder(shoppingCart, shoppingcartTotal, email);
+            var response2 = await _orderService.CreateOrder(shoppingCart, shoppingcartTotal, email);
             await _shoppingCartItemService.ClearCart(shoppingCart.Id);
 
-            return View(response);
+            return View(response2.Data!);
         }
 
         public IActionResult CheckoutComplete()
@@ -67,7 +67,7 @@ namespace OnlineCoffeeShop.UI.Controllers
         {
             var todaysOrdersVM = new TodaysOrdersViewModel();
             var response = await _orderService.GetOrdersByDate(DateTime.UtcNow);
-            todaysOrdersVM.Orders = response!;
+            todaysOrdersVM.Orders = response.Data!;
             return View(todaysOrdersVM);
         }
     }

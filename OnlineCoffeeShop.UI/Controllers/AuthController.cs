@@ -29,16 +29,16 @@ public class AuthController : Controller
 
         var loginResponse = await _customerService.Login(loginDTO);
 
-        if (loginResponse == null)
+        if (loginResponse.Data == null)
         {
-            ViewBag.LoginErrMsg = new string[] { "Invalid login credentials" };
+            ViewBag.LoginErrMsg = loginResponse.Errors;
             return View(loginDTO);
         }
 
         HttpContext.Session.SetString("IsAuthenticated", "true");
         HttpContext.Session.SetString("Username", loginDTO.Email);
 
-        TempData["RegisterSuccessMsg"] = null;
+        TempData["LoginSuccessMsg"] = "Login Successfull!";
         return RedirectToAction("Index", "Home");
     }
 
@@ -61,9 +61,9 @@ public class AuthController : Controller
 
         var registerResponse = await _customerService.CreateCustomer(registerDTO);
 
-        if (registerResponse == null)
+        if (registerResponse.Data == null)
         {
-            TempData["RegisterErrMsg"] = true;
+            TempData["RegisterErrMsg"] = registerResponse.Errors;
             return View(registerDTO);
         }
 

@@ -1,4 +1,5 @@
-﻿using OnlineCoffeeShop.Core.Interfaces;
+﻿using OnlineCoffeeShop.Core.DTOs;
+using OnlineCoffeeShop.Core.Interfaces;
 using OnlineCoffeeShop.Domain.Models;
 
 namespace OnlineCoffeeShop.Core.Implementations
@@ -15,7 +16,7 @@ namespace OnlineCoffeeShop.Core.Implementations
             _menuItemRepository = menuItemRepository;
         }
 
-        public async Task AddToCart(string menuItemId, string shoppingCartId)
+        public async Task AddToCart(string menuItemId, string shoppingCartId, int quantity)
         {
             try
             {
@@ -25,7 +26,7 @@ namespace OnlineCoffeeShop.Core.Implementations
                 {
                     MenuItem = itemToAdd,
                     ShoppingCartId = shoppingCartId,
-                    Quantity = 1
+                    Quantity = quantity
                 };
 
                 await _shoppingCartItemRepository.AddToCart(shoppingCartItem);
@@ -36,30 +37,23 @@ namespace OnlineCoffeeShop.Core.Implementations
             }
         }
 
-        public async Task<int> RemoveFromCart(string menuItemId, string shoppingCartId)
+        public async Task<ResponseDTO<List<ShoppingCartItem>>> GetShoppingCartItems(string shoppingCartId)
         {
             try
             {
-                var itemToAdd = await _menuItemRepository.GetMenuItemById(menuItemId);
-
-                var shoppingCartItem = new ShoppingCartItem
+                var shoppingCartItems = await _shoppingCartItemRepository.GetShoppingCartItems(shoppingCartId);
+                
+                if(shoppingCartItems == null || shoppingCartItems.Count < 1)
                 {
-                    MenuItem = itemToAdd,
-                    ShoppingCartId = shoppingCartId,
-                    Quantity = 1
-                };
+                    return ResponseDTO<List<ShoppingCartItem>>.Fail(new string[] { "No items in your shopping cart" });
+                }
 
-                return await _shoppingCartItemRepository.RemoveFromCart(shoppingCartItem);
+                return ResponseDTO<List<ShoppingCartItem>>.Success(shoppingCartItems);
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception("Error getting adding to cart.", ex);
+                return ResponseDTO<List<ShoppingCartItem>>.Fail(new string[] { "No items in your shopping cart" });
             }
-        }
-
-        public Task<List<ShoppingCartItem>> GetShoppingCartItems(string shoppingCartId)
-        {
-            return _shoppingCartItemRepository.GetShoppingCartItems(shoppingCartId);
         }
 
         public Task ClearCart(string shoppingCartId)

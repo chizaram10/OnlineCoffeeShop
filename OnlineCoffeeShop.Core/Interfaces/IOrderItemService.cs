@@ -5,6 +5,6 @@ namespace OnlineCoffeeShop.Core.Interfaces
 {
     public interface IOrderItemService
     {
-        Task<List<OrderItem>> GetOrderItemsByOrderId(string orderId);
+        Task<ResponseDTO<List<OrderItem>>> GetOrderItemsByOrderId(string orderId);
     }
 }

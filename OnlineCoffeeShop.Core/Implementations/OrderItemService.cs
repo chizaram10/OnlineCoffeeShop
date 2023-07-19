@@ -13,16 +13,22 @@ namespace OnlineCoffeeShop.Core.Implementations
             _orderItemRepository = orderItemRepository;
         }
 
-        public async Task<List<OrderItem>> GetOrderItemsByOrderId(string orderId)
+        public async Task<ResponseDTO<List<OrderItem>>> GetOrderItemsByOrderId(string orderId)
         {
             try
             {
                 var orderItems = await _orderItemRepository.GetOrderItemsByOrderId(orderId);
-                return orderItems;
+
+                if (orderItems == null ||orderItems.Count < 1)
+                {
+                    return ResponseDTO<List<OrderItem>>.Fail(new string[] { "No item was found for this order." });
+                }
+
+                return ResponseDTO<List<OrderItem>>.Success(orderItems);
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message, ex);
+                return ResponseDTO<List<OrderItem>>.Fail(new string[] { "No item was found for this order." }); ;
             }
         }
     }

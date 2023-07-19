@@ -5,9 +5,9 @@ namespace OnlineCoffeeShop.Core.Interfaces
 {
     public interface IOrderService
     {
-        Task<OrderDTO> CreateOrder(ShoppingCart shoppingCart, decimal amount, 
+        Task<ResponseDTO<OrderDTO>> CreateOrder(ShoppingCart shoppingCart, decimal amount, 
             string email);
-        Task<List<OrderDTO>> GetOrdersByDate(DateTime date);
-        Task CancelOrder(string orderId);
+        Task<ResponseDTO<List<OrderDTO>>> GetOrdersByDate(DateTime date);
+        Task<ResponseDTO<OrderDTO>> CancelOrder(string orderId);
     }
 }

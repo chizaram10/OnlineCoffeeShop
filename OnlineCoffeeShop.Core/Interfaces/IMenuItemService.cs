@@ -5,7 +5,7 @@ namespace OnlineCoffeeShop.Core.Interfaces
 {
     public interface IMenuItemService
     {
-        Task<List<MenuItem>> GetAllMenuItems();
-        Task<MenuItem> GetMenuItemById(string id);
+        Task<ResponseDTO<List<MenuItem>>> GetAllMenuItems();
+        Task<ResponseDTO<MenuItem>> GetMenuItemById(string id);
     }
 }

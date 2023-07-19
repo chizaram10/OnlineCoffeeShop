@@ -20,7 +20,7 @@ namespace OnlineCoffeeShop.UI.Controllers
         {
             HomeViewModel homeViewModel = new HomeViewModel();
             var response = await _menuItemService.GetAllMenuItems();
-            homeViewModel.MenuItems = response!;
+            homeViewModel.MenuItems = response.Data!;
             return View(homeViewModel);
         }
     }

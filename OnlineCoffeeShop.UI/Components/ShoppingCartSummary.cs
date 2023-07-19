@@ -18,8 +18,9 @@ namespace OnlineCoffeeShop.UI.Components
 		public async Task<IViewComponentResult> InvokeAsync()
 		{
 			var shoppingCart = ShoppingCartExtension.GetCart(HttpContext.RequestServices);
-			var items = await _shoppingCartItemService.GetShoppingCartItems(shoppingCart.Id);
-			shoppingCart.ShoppingCartItems = items;
+			var response = await _shoppingCartItemService.GetShoppingCartItems(shoppingCart.Id);
+
+			if (response.Data != null) shoppingCart.ShoppingCartItems = response.Data!;
 
 			var shoppingCartViewModel = new ShoppingCartViewModel
 			{

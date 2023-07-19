@@ -4,8 +4,8 @@ namespace OnlineCoffeeShop.Core.Interfaces
 {
     public interface ICustomerService
     {
-        Task<CustomerDTO> CreateCustomer(RegisterDTO customerDTO);
-        Task<CustomerDTO> Login(LoginDTO loginDTO);
-        Task<CustomerDTO> GetCustomerByEmail(string email);
+        Task<ResponseDTO<CustomerDTO>> CreateCustomer(RegisterDTO registerDTO);
+        Task<ResponseDTO<CustomerDTO>> Login(LoginDTO loginDTO);
+        Task<ResponseDTO<CustomerDTO>> GetCustomerByEmail(string email);
     }
 }

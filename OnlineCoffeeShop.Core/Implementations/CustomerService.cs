@@ -14,53 +14,57 @@ namespace OnlineCoffeeShop.Core.Implementations
             _customerRepository = customerRepository;
         }
 
-        public async Task<CustomerDTO> CreateCustomer(RegisterDTO customerDTO)
+        public async Task<ResponseDTO<CustomerDTO>> CreateCustomer(RegisterDTO registerDTO)
         {
             try
             {
-                var existingUser = await _customerRepository.GetCustomerByEmail(customerDTO.Email!);
+                var existingUser = await _customerRepository.GetCustomerByEmail(registerDTO.Email!);
 
                 if (existingUser != null)
-                    return null!;
+                    return ResponseDTO<CustomerDTO>.Fail(new string[] 
+                    { 
+                        $"Customer with email {registerDTO.Email} already exists" 
+                    });
 
                 Customer customer = new Customer()
                 {
-                    PhoneNumber = customerDTO.PhoneNumber,
-                    Email = customerDTO.Email,
-                    FirstName = customerDTO.FirstName,
-                    LastName = customerDTO.LastName,
-                    PasswordHash = PasswordHashAndVerification.HashPassword(customerDTO.Password),
-                    UserName = customerDTO.Email,
-                    NormalizedUserName = customerDTO.FirstName,
+                    PhoneNumber = registerDTO.PhoneNumber,
+                    Email = registerDTO.Email,
+                    FirstName = registerDTO.FirstName,
+                    LastName = registerDTO.LastName,
+                    PasswordHash = PasswordHashAndVerification.HashPassword(registerDTO.Password),
+                    UserName = registerDTO.Email,
+                    NormalizedUserName = registerDTO.FirstName,
                 };
 
                 await _customerRepository.CreateCustomer(customer);
 
-                return new CustomerDTO
+                return ResponseDTO<CustomerDTO>.Success(new CustomerDTO
                 {
                     FirstName = customer.FirstName,
                     LastName = customer.LastName,
                     PhoneNumber = customer.PhoneNumber,
                     Email = customer.Email,
-                };
+                });
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message, ex);
+                return ResponseDTO<CustomerDTO>.Fail(new string[]
+                {
+                    "Unable to register customer. Try later."
+                });
             }
         }
 
-        public async Task<CustomerDTO> Login(LoginDTO loginDTO)
+        public async Task<ResponseDTO<CustomerDTO>> Login(LoginDTO loginDTO)
         {
             try
             {
-                CustomerDTO customerDTO = null!;
-
                 var customer = await _customerRepository.GetCustomerByEmail(loginDTO.Email);
 
                 if (customer == null)
                 {
-                    return customerDTO!;
+                    return ResponseDTO<CustomerDTO>.Fail(new string[] { "Invalid ligin credentials." });
                 }
 
                 var isPasswordValid = PasswordHashAndVerification.VerifyPassword(loginDTO.Password,
@@ -68,24 +72,24 @@ namespace OnlineCoffeeShop.Core.Implementations
 
                 if (isPasswordValid)
                 {
-                    return new CustomerDTO
+                    return ResponseDTO<CustomerDTO>.Success(new CustomerDTO
                     {
                         FirstName = customer.FirstName,
                         LastName = customer.LastName,
                         PhoneNumber = customer.PhoneNumber,
                         Email = customer.Email,
-                    };
+                    });
                 }
 
-                return customerDTO;
+                return ResponseDTO<CustomerDTO>.Fail(new string[] { "Invalid ligin credentials." });
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception("Invalid ligin credentials.", ex);
+                return ResponseDTO<CustomerDTO>.Fail(new string[] { "Invalid ligin credentials." });
             }
         }
 
-        public async Task<CustomerDTO> GetCustomerByEmail(string email)
+        public async Task<ResponseDTO<CustomerDTO>> GetCustomerByEmail(string email)
         {
             try
             {
@@ -93,20 +97,20 @@ namespace OnlineCoffeeShop.Core.Implementations
 
                 if (customer != null)
                 {
-                    return new CustomerDTO
+                    return ResponseDTO<CustomerDTO>.Success(new CustomerDTO
                     {
-                        Email = customer.Email,
-                        PhoneNumber = customer.PhoneNumber,
                         FirstName = customer.FirstName,
                         LastName = customer.LastName,
-                    };
+                        PhoneNumber = customer.PhoneNumber,
+                        Email = customer.Email,
+                    });
                 }
 
-                return null!;
+                return ResponseDTO<CustomerDTO>.Fail(new string[] { $"Customer with this email {email} not found." });
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception($"{ex.Message}", ex);
+                return ResponseDTO<CustomerDTO>.Fail(new string[] { $"Customer with this email {email} not found." });
             }
         }
     }

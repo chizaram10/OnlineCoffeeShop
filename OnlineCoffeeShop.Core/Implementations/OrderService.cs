@@ -1,6 +1,7 @@
 ﻿using OnlineCoffeeShop.Core.DTOs;
 using OnlineCoffeeShop.Core.Interfaces;
 using OnlineCoffeeShop.Domain.Models;
+using System.Collections.Generic;
 
 namespace OnlineCoffeeShop.Core.Implementations
 {
@@ -16,7 +17,7 @@ namespace OnlineCoffeeShop.Core.Implementations
             _customerRepository = customerRepository;
         }
 
-        public async Task<OrderDTO> CreateOrder(ShoppingCart shoppingCart, decimal amount,
+        public async Task<ResponseDTO<OrderDTO>> CreateOrder(ShoppingCart shoppingCart, decimal amount,
             string email)
         {
             try
@@ -39,28 +40,29 @@ namespace OnlineCoffeeShop.Core.Implementations
                 }
 
                 await _orderRepository.CreateOrder(order);
-                return new OrderDTO
-                {
-                    OrderDate = order.OrderDate,
-                    OrderTotal = order.OrderTotal,
-                    OrderNumber = order.OrderNumber,
-                    Id = order.Id,
-                    Customer = new CustomerDTO
+                return ResponseDTO<OrderDTO>.Success(
+                    new OrderDTO
                     {
-                        Email = order.Customer.Email,
-                        FirstName = order.Customer.FirstName,
-                        LastName = order.Customer.LastName,
-                        PhoneNumber = order.Customer.PhoneNumber
-                    }
-                };
+                        OrderDate = order.OrderDate,
+                        OrderTotal = order.OrderTotal,
+                        OrderNumber = order.OrderNumber,
+                        Id = order.Id,
+                        Customer = new CustomerDTO
+                        {
+                            Email = order.Customer.Email,
+                            FirstName = order.Customer.FirstName,
+                            LastName = order.Customer.LastName,
+                            PhoneNumber = order.Customer.PhoneNumber
+                        }
+                    });
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception($"{ex.Message}", ex);
+                return ResponseDTO<OrderDTO>.Fail(new string[] { "Unable to create order." });
             }
         }
 
-        public async Task<List<OrderDTO>> GetOrdersByDate(DateTime date)
+        public async Task<ResponseDTO<List<OrderDTO>>> GetOrdersByDate(DateTime date)
         {
             try
             {
@@ -81,18 +83,46 @@ namespace OnlineCoffeeShop.Core.Implementations
                     });
                 }
 
-                return result;
+                return ResponseDTO<List<OrderDTO>>.Success(result);
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception($"{ex.Message}", ex);
+                return ResponseDTO<List<OrderDTO>>.Fail(new string[] { "Unable to get orders for this date." });
             }
         }
 
-        public async Task CancelOrder(string id)
+        public async Task<ResponseDTO<OrderDTO>> CancelOrder(string id)
         {
-            var order = await _orderRepository.GetOrderById(id);
-            await _orderRepository.DeleteOrder(order);
+            try
+            {
+                var order = await _orderRepository.GetOrderById(id);
+
+                if (order == null)
+                {
+                    return ResponseDTO<OrderDTO>.Fail(new string[] { "Unable to find this order." });
+                }
+
+                await _orderRepository.DeleteOrder(order);
+                return ResponseDTO<OrderDTO>.Success(
+                    new OrderDTO
+                    {
+                        OrderDate = order.OrderDate,
+                        OrderTotal = order.OrderTotal,
+                        OrderNumber = order.OrderNumber,
+                        Id = order.Id,
+                        Customer = new CustomerDTO
+                        {
+                            Email = order.Customer.Email,
+                            FirstName = order.Customer.FirstName,
+                            LastName = order.Customer.LastName,
+                            PhoneNumber = order.Customer.PhoneNumber
+                        }
+                    });
+            }
+            catch
+            {
+                return ResponseDTO<OrderDTO>.Fail(new string[] { "Unable to find this order." });
+            }            
         }
     }
 }
