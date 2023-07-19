@@ -16,24 +16,37 @@ namespace OnlineCoffeeShop.Core.Implementations
             _menuItemRepository = menuItemRepository;
         }
 
-        public async Task AddToCart(string menuItemId, string shoppingCartId, int quantity)
+        public async Task<int> AddToCart(string shoppingCartId, string menuItemId)
         {
             try
             {
-                var itemToAdd = await _menuItemRepository.GetMenuItemById(menuItemId);
+                //Check if menuItem is already in cart.
+                var item = await _shoppingCartItemRepository.GetShoppingCartItemByMenuId(shoppingCartId, menuItemId);
 
-                var shoppingCartItem = new ShoppingCartItem
+                bool isInCart = item != null;
+
+                if (!isInCart)
                 {
-                    MenuItem = itemToAdd,
-                    ShoppingCartId = shoppingCartId,
-                    Quantity = quantity
-                };
+                    var itemToAdd = await _menuItemRepository.GetMenuItemById(menuItemId);
 
-                await _shoppingCartItemRepository.AddToCart(shoppingCartItem);
+                    var shoppingCartItem = new ShoppingCartItem
+                    {
+                        MenuItem = itemToAdd,
+                        ShoppingCartId = shoppingCartId,
+                        Quantity = 1
+                    };
+
+                    await _shoppingCartItemRepository.AddToCart(shoppingCartItem);
+                    return shoppingCartItem.Quantity;
+                }
+
+                item!.Quantity++;
+                await _shoppingCartItemRepository.UpdateShoppingCartItem(item);
+                return item.Quantity;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error getting adding to cart.", ex);
+                throw new Exception("Error adding to cart.", ex);
             }
         }
 
@@ -53,6 +66,31 @@ namespace OnlineCoffeeShop.Core.Implementations
             catch
             {
                 return ResponseDTO<List<ShoppingCartItem>>.Fail(new string[] { "No items in your shopping cart" });
+            }
+        }
+
+        public async Task<int> RemoveFromCart(string shoppingCartId, string menuItemId)
+        {
+            try
+            {
+                //Check if menuItem is in cart.
+                var item = await _shoppingCartItemRepository.GetShoppingCartItemByMenuId(shoppingCartId, menuItemId);
+
+                bool isInCart = item != null;
+
+                if (isInCart && item!.Quantity > 1)
+                {
+                    item!.Quantity--;
+                    await _shoppingCartItemRepository.UpdateShoppingCartItem(item);
+                    return item.Quantity;
+                }
+
+                await _shoppingCartItemRepository.DeleteShoppingCartItem(item!);
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error adding to cart.", ex);
             }
         }
 

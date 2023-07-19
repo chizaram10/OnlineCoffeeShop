@@ -7,7 +7,9 @@ namespace OnlineCoffeeShop.Core.Interfaces
         Task AddToCart(ShoppingCartItem item);
         Task ClearCart(string shoppingCartId);
         Task<List<ShoppingCartItem>> GetShoppingCartItems(string shoppingCartId);
-        Task<ShoppingCartItem> GetShoppingCartItemById(string id);
+        Task<ShoppingCartItem> GetShoppingCartItemByMenuId(string shoppingCartId, string menuItemId);
         decimal GetShoppingCartTotal(string shoppingCartId);
+        Task UpdateShoppingCartItem(ShoppingCartItem shoppingCartItem);
+        Task DeleteShoppingCartItem(ShoppingCartItem shoppingCartItem);
     }
 }

@@ -15,18 +15,7 @@ namespace OnlineCoffeeShop.Infrastructure.Repositories
 
         public async Task AddToCart(ShoppingCartItem item)
         {
-            var shoppingCartItem = await _dbContext.ShoppingCartItems
-                .FirstOrDefaultAsync(s => item.Id == s.Id);
-
-            if (shoppingCartItem == null)
-            {
-                await _dbContext.ShoppingCartItems.AddAsync(item!);
-            }
-            else
-            {
-                shoppingCartItem.Quantity++;
-            }
-
+            await _dbContext.ShoppingCartItems.AddAsync(item!);
             await _dbContext.SaveChangesAsync();
         }
 
@@ -40,14 +29,22 @@ namespace OnlineCoffeeShop.Infrastructure.Repositories
             return shoppingCartItems!;
         }
 
-        public async Task<ShoppingCartItem> GetShoppingCartItemById(string id)
+        public async Task<ShoppingCartItem> GetShoppingCartItemByMenuId(string shoppingCartId, string menuItemId)
         {
             var shoppingCartItem = await _dbContext.ShoppingCartItems
                 .Include(si => si.MenuItem)
-                .FirstOrDefaultAsync(si => id == si.Id);
+                .FirstOrDefaultAsync(si => shoppingCartId == si.ShoppingCartId && menuItemId == si.MenuItemId);
 
             return shoppingCartItem!;
         }
+
+        public async Task UpdateShoppingCartItem(ShoppingCartItem shoppingCartItem)
+        {
+            _dbContext.Entry(shoppingCartItem).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+        }
+
+
 
         public async Task ClearCart(string shoppingCartId)
         {
@@ -65,6 +62,12 @@ namespace OnlineCoffeeShop.Infrastructure.Repositories
             var total = _dbContext.ShoppingCartItems.Where(c => shoppingCartId == c.ShoppingCartId)
                 .Select(c => c.MenuItem.Price * c.Quantity).Sum();
             return total;
+        }
+
+        public async Task DeleteShoppingCartItem(ShoppingCartItem shoppingCartItem)
+        {
+            _dbContext.ShoppingCartItems.Remove(shoppingCartItem);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

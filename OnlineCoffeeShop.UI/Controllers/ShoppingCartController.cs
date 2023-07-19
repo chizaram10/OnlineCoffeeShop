@@ -33,11 +33,19 @@ namespace OnlineCoffeeShop.UI.Controllers
             return View(shoppingCartViewModel);
         }
 
-        public async Task<RedirectToActionResult> AddToShoppingCart(string id, int quantity)
+        public async Task<RedirectToActionResult> AddToShoppingCart(string menuItemId)
         {
             var shoppingCart = ShoppingCartExtension.GetCart(HttpContext.RequestServices);
-            await _shoppingCartItemService.AddToCart(id, shoppingCart.Id, quantity);
+            await _shoppingCartItemService.AddToCart(shoppingCart.Id, menuItemId);
             
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<RedirectToActionResult> RemoveFromShoppingCart(string menuItemId)
+        {
+            var shoppingCart = ShoppingCartExtension.GetCart(HttpContext.RequestServices);
+            await _shoppingCartItemService.RemoveFromCart(shoppingCart.Id, menuItemId);
+
             return RedirectToAction("Index", "Home");
         }
     }
