@@ -21,9 +21,9 @@ namespace OnlineCoffeeShop.Core.Implementations
                 var existingUser = await _customerRepository.GetCustomerByEmail(registerDTO.Email!);
 
                 if (existingUser != null)
-                    return ResponseDTO<CustomerDTO>.Fail(new string[] 
-                    { 
-                        $"Customer with email {registerDTO.Email} already exists" 
+                    return ResponseDTO<CustomerDTO>.Fail(new string[]
+                    {
+                        $"Customer with email {registerDTO.Email} already exists"
                     });
 
                 Customer customer = new Customer()

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineCoffeeShop.Core.Interfaces;
 using OnlineCoffeeShop.Domain.Models;
@@ -8,8 +7,8 @@ using OnlineCoffeeShop.UI.Models;
 
 namespace OnlineCoffeeShop.UI.Controllers
 {
-	public class OrderController : Controller
-	{
+    public class OrderController : Controller
+    {
         private readonly IOrderService _orderService;
         private readonly IShoppingCartItemService _shoppingCartItemService;
         private readonly UserManager<Customer> _userManager;

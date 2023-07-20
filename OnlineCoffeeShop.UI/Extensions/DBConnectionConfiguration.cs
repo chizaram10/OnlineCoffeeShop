@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 using OnlineCoffeeShop.ConfigOptions;
-using OnlineCoffeeShop.Domain.Models;
 using OnlineCoffeeShop.Infrastructure;
 
 namespace OnlineCoffeeShop.UI.Extensions

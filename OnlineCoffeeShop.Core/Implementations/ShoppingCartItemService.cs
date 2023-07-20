@@ -55,8 +55,8 @@ namespace OnlineCoffeeShop.Core.Implementations
             try
             {
                 var shoppingCartItems = await _shoppingCartItemRepository.GetShoppingCartItems(shoppingCartId);
-                
-                if(shoppingCartItems == null || shoppingCartItems.Count < 1)
+
+                if (shoppingCartItems == null || shoppingCartItems.Count < 1)
                 {
                     return ResponseDTO<List<ShoppingCartItem>>.Fail(new string[] { "No items in your shopping cart" });
                 }

@@ -1,6 +1,6 @@
-﻿using OnlineCoffeeShop.Domain.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OnlineCoffeeShop.Core.Interfaces;
+using OnlineCoffeeShop.Domain.Models;
 
 namespace OnlineCoffeeShop.Infrastructure.Repositories
 {

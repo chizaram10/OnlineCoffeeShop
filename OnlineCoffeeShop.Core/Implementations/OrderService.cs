@@ -1,7 +1,6 @@
 ﻿using OnlineCoffeeShop.Core.DTOs;
 using OnlineCoffeeShop.Core.Interfaces;
 using OnlineCoffeeShop.Domain.Models;
-using System.Collections.Generic;
 
 namespace OnlineCoffeeShop.Core.Implementations
 {
@@ -10,7 +9,7 @@ namespace OnlineCoffeeShop.Core.Implementations
         private readonly IOrderRepository _orderRepository;
         private readonly ICustomerRepository _customerRepository;
 
-        public OrderService(IOrderRepository orderRepository, 
+        public OrderService(IOrderRepository orderRepository,
             ICustomerRepository customerRepository)
         {
             _orderRepository = orderRepository;
@@ -69,16 +68,20 @@ namespace OnlineCoffeeShop.Core.Implementations
                 var orders = await _orderRepository.GetOrdersByDate(date);
                 var result = new List<OrderDTO>();
 
-                foreach(var order in orders)
+                foreach (var order in orders)
                 {
-                    result.Add(new OrderDTO 
-                    { 
-                        OrderDate = order.OrderDate, OrderTotal = order.OrderTotal,
-                        OrderNumber = order.OrderNumber, Id = order.Id,
-                        Customer = new CustomerDTO 
-                        { 
-                            Email = order.Customer.Email, FirstName = order.Customer.FirstName,
-                            LastName = order.Customer.LastName, PhoneNumber = order.Customer.PhoneNumber
+                    result.Add(new OrderDTO
+                    {
+                        OrderDate = order.OrderDate,
+                        OrderTotal = order.OrderTotal,
+                        OrderNumber = order.OrderNumber,
+                        Id = order.Id,
+                        Customer = new CustomerDTO
+                        {
+                            Email = order.Customer.Email,
+                            FirstName = order.Customer.FirstName,
+                            LastName = order.Customer.LastName,
+                            PhoneNumber = order.Customer.PhoneNumber
                         }
                     });
                 }
@@ -122,7 +125,7 @@ namespace OnlineCoffeeShop.Core.Implementations
             catch
             {
                 return ResponseDTO<OrderDTO>.Fail(new string[] { "Unable to find this order." });
-            }            
+            }
         }
     }
 }

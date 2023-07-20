@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Identity;
 using OnlineCoffeeShop.Domain.Models;
 using OnlineCoffeeShop.Infrastructure;
 using OnlineCoffeeShop.UI.Extensions;
 
 namespace OnlineCoffeeShop.UI
 {
-	public class Program
+    public class Program
     {
         public static async Task Main(string[] args)
         {
@@ -20,7 +19,7 @@ namespace OnlineCoffeeShop.UI
             builder.Services.AddSession();
             builder.Services.AddAuthenticationConfiguration();
             builder.Services.AddAuthorization();
-			builder.Services.AddScoped<ShoppingCart>(sp => ShoppingCartExtension.GetCart(sp));
+            builder.Services.AddScoped<ShoppingCart>(sp => ShoppingCartExtension.GetCart(sp));
 
             var app = builder.Build();
 

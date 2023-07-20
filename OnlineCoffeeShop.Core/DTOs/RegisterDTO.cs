@@ -6,16 +6,16 @@ namespace OnlineCoffeeShop.Core.DTOs
 {
     public class RegisterDTO
     {
-        [Required(ErrorMessage = "Required."), MaxLength(50, 
+        [Required(ErrorMessage = "Required."), MaxLength(50,
             ErrorMessage = "First name cannot exceed 50 characters.")]
         public string FirstName { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Required."), MaxLength(50, 
+        [Required(ErrorMessage = "Required."), MaxLength(50,
             ErrorMessage = "Last name cannot exceed 50 characters.")]
         public string LastName { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Required."), 
-            EmailAddress(ErrorMessage = "Invalid email address."), MaxLength(50, 
+        [Required(ErrorMessage = "Required."),
+            EmailAddress(ErrorMessage = "Invalid email address."), MaxLength(50,
             ErrorMessage = "Email address cannot exceed 50 characters.")]
         public string Email { get; set; } = string.Empty;
 

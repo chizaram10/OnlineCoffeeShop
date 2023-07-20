@@ -19,7 +19,7 @@ namespace OnlineCoffeeShop.Core.Implementations
             {
                 var orderItems = await _orderItemRepository.GetOrderItemsByOrderId(orderId);
 
-                if (orderItems == null ||orderItems.Count < 1)
+                if (orderItems == null || orderItems.Count < 1)
                 {
                     return ResponseDTO<List<OrderItem>>.Fail(new string[] { "No item was found for this order." });
                 }

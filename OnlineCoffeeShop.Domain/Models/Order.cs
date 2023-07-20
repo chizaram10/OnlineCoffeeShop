@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualBasic;
-
-namespace OnlineCoffeeShop.Domain.Models
+﻿namespace OnlineCoffeeShop.Domain.Models
 {
     public class Order
     {

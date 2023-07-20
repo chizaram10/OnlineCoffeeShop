@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineCoffeeShop.Core.Interfaces;
-using OnlineCoffeeShop.Domain.Models;
 using OnlineCoffeeShop.UI.Extensions;
 using OnlineCoffeeShop.UI.Models;
 
@@ -37,7 +36,7 @@ namespace OnlineCoffeeShop.UI.Controllers
         {
             var shoppingCart = ShoppingCartExtension.GetCart(HttpContext.RequestServices);
             await _shoppingCartItemService.AddToCart(shoppingCart.Id, menuItemId);
-            
+
             return RedirectToAction("Index", "Home");
         }
 

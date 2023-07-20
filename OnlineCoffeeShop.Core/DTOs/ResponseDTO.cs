@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace OnlineCoffeeShop.Core.DTOs
+﻿namespace OnlineCoffeeShop.Core.DTOs
 {
     public class ResponseDTO<T>
     {

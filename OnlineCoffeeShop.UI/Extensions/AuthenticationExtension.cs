@@ -2,7 +2,7 @@
 {
     public static class AuthenticationExtension
     {
-        public static void AddAuthenticationConfiguration (this IServiceCollection services)
+        public static void AddAuthenticationConfiguration(this IServiceCollection services)
         {
             services.AddAuthentication(options =>
             {
@@ -10,7 +10,7 @@
                 options.DefaultChallengeScheme = "DefaultAuthenticationScheme";
             }).AddCookie("DefaultAuthenticationScheme", options =>
             {
-                options.Cookie.Name = "AuthCookie"; 
+                options.Cookie.Name = "AuthCookie";
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.SlidingExpiration = true;

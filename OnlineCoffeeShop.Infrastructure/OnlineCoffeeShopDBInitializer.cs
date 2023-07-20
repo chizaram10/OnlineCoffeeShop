@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
+using Newtonsoft.Json;
 using OnlineCoffeeShop.Domain.Models;
 
 namespace OnlineCoffeeShop.Infrastructure

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineCoffeeShop.Core.Interfaces;
 using OnlineCoffeeShop.UI.Models;
-using System.Diagnostics;
 
 namespace OnlineCoffeeShop.UI.Controllers
 {

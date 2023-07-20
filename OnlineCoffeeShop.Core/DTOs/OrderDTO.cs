@@ -1,6 +1,4 @@
-﻿using OnlineCoffeeShop.Domain.Models;
-
-namespace OnlineCoffeeShop.Core.DTOs
+﻿namespace OnlineCoffeeShop.Core.DTOs
 {
     public class OrderDTO
     {
@@ -9,7 +7,7 @@ namespace OnlineCoffeeShop.Core.DTOs
         public DateTime OrderDate { get; set; }
         public decimal OrderTotal { get; set; }
         public string CustomerId { get; set; } = string.Empty;
-        public CustomerDTO? Customer { get; set; } 
+        public CustomerDTO? Customer { get; set; }
 
     }
 }

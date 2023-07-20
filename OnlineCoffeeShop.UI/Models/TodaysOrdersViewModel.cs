@@ -1,5 +1,4 @@
 ﻿using OnlineCoffeeShop.Core.DTOs;
-using OnlineCoffeeShop.Domain.Models;
 
 namespace OnlineCoffeeShop.UI.Models
 {
