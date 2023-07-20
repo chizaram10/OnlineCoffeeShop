@@ -1,36 +1,39 @@
 ﻿@model TodaysOrdersViewModel
 
-@if (Model.Orders.Count() < 1)
-{
-    <div class="container mt-5 pt-5">
-        No orders have been made today. Please see our <a asp-controller="Home" asp-action="Index">Menu</a>
-    </div>
-}
-else
-{
-    <div class="container mt-5 pt-5">
-        <div>
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Order Date</th>
-                        <th>Order Number</th>
-                        <th class="text-right">Price</th>
-                        <th class="text-right">Customer Phone Number</th>
-                        <th class="text-right">Customer Name</th>
-                    </tr>
-                </thead>
-                @foreach(var item in Model.Orders)
-                {
-                    <partial name="_OrderRow" model="item" />
-                }
-            </table>
+<div class="container mt-5 pt-5">
+    @if (Model.Orders.Count() < 1)
+    {
+        <div class="mt-5 pt-5">
+            No orders have been made today. Please see our <a asp-controller="Home" asp-action="Index">Menu</a>
+        </div>
+    }
+    else
+    {
+        <div class="mt-5 pt-5">
+            <div>
+                <h2 class="fw-bolder">All Today's Orders</h2>
+                <table class="table table-bordered table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th>Order Date</th>
+                            <th>Order Number</th>
+                            <th class="text-right">Price</th>
+                            <th class="text-right">Customer Phone Number</th>
+                            <th class="text-right">Customer Name</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.Orders)
+                    {
+                        <partial name="_OrderRow" model="item" />
+                    }
+                </table>
 
-            <div class="mt-4 row justify-content-center align-items-center w-100">
-                <div class="text-center">
-                    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Go back</a>
+                <div class="mt-4 row justify-content-center align-items-center w-100">
+                    <div class="text-center">
+                        <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Go back</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
